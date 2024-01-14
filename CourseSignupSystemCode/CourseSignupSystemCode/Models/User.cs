@@ -16,7 +16,7 @@ namespace CourseSignupSystemCode.Models
 
         public string? Password { get; set; }
 
-        public string Ịmage { get; set; }
+        public string? Ịmage { get; set; }
 
         [ForeignKey("Role")]
         public int IDRole { get; set; }

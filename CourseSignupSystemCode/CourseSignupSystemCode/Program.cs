@@ -1,4 +1,6 @@
 using CourseSignupSystemCode.Data;
+using CourseSignupSystemCode.Interface;
+using CourseSignupSystemCode.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,18 @@ builder.Services.AddDbContext<CourseSignupSystemContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("CourseSignupSystem"));
 });
+
+// Add Dependency Injection (Interface)
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IFacultyService, FacultyService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 var app = builder.Build();
 

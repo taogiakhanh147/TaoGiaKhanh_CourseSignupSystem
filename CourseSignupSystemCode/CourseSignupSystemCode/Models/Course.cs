@@ -14,7 +14,9 @@ namespace CourseSignupSystemCode.Models
 
         public string? CourseName { get; set; }
 
-        public string? Stage { get; set; }
+        public DateTime? CourseStartDate { get; set; }
+
+        public DateTime? CourseEndDate { get; set; }
 
         [JsonIgnore]
         public ICollection<Class> Classes { get; set; }

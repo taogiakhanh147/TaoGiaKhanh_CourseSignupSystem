@@ -71,14 +71,17 @@ namespace CourseSignupSystemCode.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<DateTime?>("CourseEndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CourseNO")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stage")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CourseStartDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
@@ -546,7 +549,6 @@ namespace CourseSignupSystemCode.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ịmage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
