@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourseSignupSystemCode.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CourseSignupSystemCode.DTO
 {
-    public class SubjectDTO
+    public class SubjectOfTeacherDTO
     {
         public string? SubjectNO { get; set; }
 
@@ -12,5 +14,7 @@ namespace CourseSignupSystemCode.DTO
         [Required]
         public int IDDepartment { get; set; }
 
+        [Required]
+        public int IDClass { get; set; }
     }
 }

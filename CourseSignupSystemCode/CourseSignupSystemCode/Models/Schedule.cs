@@ -21,8 +21,8 @@ namespace CourseSignupSystemCode.Models
         [ForeignKey("Subject")]
         public int IDSubject { get; set; }
 
-        [JsonIgnore]
-        public Subject Subject { get; set; }
+        /*[JsonIgnore]
+        public Subject Subject { get; set; }*/
 
         [ForeignKey("Student")]
         public int IDStudent { get; set; }

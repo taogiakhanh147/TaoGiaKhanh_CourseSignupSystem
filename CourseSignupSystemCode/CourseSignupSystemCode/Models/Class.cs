@@ -45,5 +45,11 @@ namespace CourseSignupSystemCode.Models
 
         [JsonIgnore]
         public ICollection<Salary> Salaries { get; set; }
+
+        [JsonIgnore]
+        public ICollection<SubjectOfStudent> SubjectOfStudents { get; set; }
+
+        [JsonIgnore]
+        public ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
     }
 }

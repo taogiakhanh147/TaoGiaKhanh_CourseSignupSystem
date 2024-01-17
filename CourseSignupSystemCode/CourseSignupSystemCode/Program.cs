@@ -27,8 +27,13 @@ builder.Services.AddScoped<IFacultyService, FacultyService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IClassService, ClassService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<ISubjectOfStudentService, SubjectOfStudentService>();
+builder.Services.AddScoped<ISubjectOfTeacherService, SubjectOfTeacherService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<ITuitionTypeService, TuitionTypeService>();
+builder.Services.AddScoped<ITuitionService, TuitionService>();
+builder.Services.AddScoped<IHolidayService, HolidayService>();
+builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
 
 var app = builder.Build();
 

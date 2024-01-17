@@ -13,6 +13,9 @@ namespace CourseSignupSystemCode.Models
         public string? DepartmentName { get; set; }
 
         [JsonIgnore]
-        public ICollection<Subject> Subjects { get; set; }
+        public ICollection<SubjectOfStudent> SubjectOfStudents { get; set; }
+
+        [JsonIgnore]
+        public ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
     }
 }

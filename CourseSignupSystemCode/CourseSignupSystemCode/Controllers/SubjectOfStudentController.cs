@@ -7,11 +7,11 @@ namespace CourseSignupSystemCode.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubjectController : ControllerBase
+    public class SubjectOfStudentController : ControllerBase
     {
-        private readonly ISubjectService _iSubjectService;
+        private readonly ISubjectOfStudentService _iSubjectService;
 
-        public SubjectController(ISubjectService iSubjectService)
+        public SubjectOfStudentController(ISubjectOfStudentService iSubjectService)
         {
             _iSubjectService = iSubjectService;
         }
@@ -34,7 +34,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function AddNewSubject (POST)
         [HttpPost("AddNewSubject")]
-        public async Task<IActionResult> AddNewSubject(SubjectDTO subjectDTO)
+        public async Task<IActionResult> AddNewSubject(SubjectOfStudentDTO subjectDTO)
         {
             var newSubject = await _iSubjectService.AddSubjectAsync(subjectDTO);
             return Ok(newSubject);
@@ -42,7 +42,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function UpdateSubject (PUT)
         [HttpPut("UpdateSubject/{id}")]
-        public async Task<IActionResult> UpdateSubject(int id, SubjectDTO subjectDTO)
+        public async Task<IActionResult> UpdateSubject(int id, SubjectOfStudentDTO subjectDTO)
         {
             var updateSubject = await _iSubjectService.UpdateSubjectAsync(id, subjectDTO);
             return Ok(updateSubject);

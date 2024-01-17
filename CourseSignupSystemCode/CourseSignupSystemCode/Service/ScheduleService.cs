@@ -41,6 +41,24 @@ namespace CourseSignupSystemCode.Service
             {
                 throw new NotImplementedException("Please enter complete information");
             }
+
+            // Kiểm tra học sinh đó có tồn tại không
+            var student = await _context.Students
+                        .Include(s => s.Class)
+                        .ThenInclude(c => c.SubjectOfStudents)
+                        .FirstOrDefaultAsync(s => s.ID == scheduleDTO.IDStudent);
+            if (student == null)
+            {
+                throw new NotImplementedException("Student not exist");
+            }
+
+            // Kiểm tra xem môn học nhập vào có thuộc trong lớp mà học sinh học không
+            var subjectInClass = student.Class?.SubjectOfStudents.FirstOrDefault(s => s.ID == scheduleDTO.IDSubject);
+            if (subjectInClass == null)
+            {
+                throw new NotImplementedException("Subject is not in the student's class");
+            }
+
             var newSchedule = new Schedule
             {
                 ClassRoom = scheduleDTO.ClassRoom,
@@ -61,6 +79,22 @@ namespace CourseSignupSystemCode.Service
             if (existingSchedule == null)
             {
                 throw new NotImplementedException("Schedule not exist");
+            }
+            // Kiểm tra học sinh đó có tồn tại không
+            var student = await _context.Students
+                        .Include(s => s.Class)
+                        .ThenInclude(c => c.SubjectOfStudents)
+                        .FirstOrDefaultAsync(s => s.ID == scheduleDTO.IDStudent);
+            if (student == null)
+            {
+                throw new NotImplementedException("Student not exist");
+            }
+
+            // Kiểm tra xem môn học nhập vào có thuộc trong lớp mà học sinh học không
+            var subjectInClass = student.Class?.SubjectOfStudents.FirstOrDefault(s => s.ID == scheduleDTO.IDSubject);
+            if (subjectInClass == null)
+            {
+                throw new NotImplementedException("Subject is not in the student's class");
             }
             existingSchedule.ClassRoom = scheduleDTO.ClassRoom;
             existingSchedule.StudyTime = scheduleDTO.StudyTime;

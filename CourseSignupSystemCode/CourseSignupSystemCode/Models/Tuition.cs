@@ -14,6 +14,10 @@ namespace CourseSignupSystemCode.Models
 
         public int? Discount { get; set; }
 
+        public int? Surcharge { get; set; }
+
+        public double? TotalTuition { get; set; }
+
         public string? Note { get; set; }
 
         [ForeignKey("Class")]

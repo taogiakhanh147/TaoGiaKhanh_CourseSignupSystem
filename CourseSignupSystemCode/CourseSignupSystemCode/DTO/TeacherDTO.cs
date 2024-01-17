@@ -23,11 +23,12 @@ namespace CourseSignupSystemCode.DTO
 
         public string? Address { get; set; }
 
-        public string? MainSubject { get; set; }
-
         public string? PartTimeSubject { get; set; }
 
         public string? Password { get; set; }
+
+        [Required]
+        public int IDSubject { get; set; }
 
         [Required]
         public int IDRole { get; set; }

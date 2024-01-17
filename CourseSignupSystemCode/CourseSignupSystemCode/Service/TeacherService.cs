@@ -43,6 +43,7 @@ namespace CourseSignupSystemCode.Service
             {
                 throw new NotImplementedException("Please enter complete information");
             }
+
             var newTeacher = new Teacher
             {
                 TaxCode = teacherDTO.TaxCode,
@@ -53,9 +54,9 @@ namespace CourseSignupSystemCode.Service
                 Email = teacherDTO.Email,
                 Phone = teacherDTO.Phone,
                 Address = teacherDTO.Address,
-                MainSubject = teacherDTO.MainSubject,
                 PartTimeSubject = teacherDTO.PartTimeSubject,
                 Password = teacherDTO.Password,
+                IDSubject = teacherDTO.IDSubject,
                 IDRole = teacherDTO.IDRole
             };
             _context.Teachers.Add(newTeacher);
@@ -93,9 +94,9 @@ namespace CourseSignupSystemCode.Service
             existingTeacher.Email = teacherDTO.Email;
             existingTeacher.Phone = teacherDTO.Phone;
             existingTeacher.Address = teacherDTO.Address;
-            existingTeacher.MainSubject = teacherDTO.MainSubject;
             existingTeacher.PartTimeSubject = teacherDTO.PartTimeSubject;
             existingTeacher.Password = teacherDTO.Password;
+            existingTeacher.IDSubject = teacherDTO.IDSubject;
             existingTeacher.IDRole = teacherDTO.IDRole;
             _context.Teachers.Update(existingTeacher);
             await _context.SaveChangesAsync();

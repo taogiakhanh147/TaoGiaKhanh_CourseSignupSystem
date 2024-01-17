@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace CourseSignupSystemCode.Models
 {
     [Table("Subject")]
-    public class Subject
+    public class SubjectOfStudent
     {
         [Key]
         public int ID { get; set; }
@@ -20,11 +20,17 @@ namespace CourseSignupSystemCode.Models
         [JsonIgnore]
         public Department Department { get; set; }
 
-       /* [ForeignKey("Faculty")]
-        public int IDFaculty { get; set; }
+        [ForeignKey("Class")]
+        public int IDClass { get; set; }
 
         [JsonIgnore]
-        public Faculty Faculty { get; set; }*/
+        public Class Class { get; set; }
+
+        /* [ForeignKey("Faculty")]
+         public int IDFaculty { get; set; }
+
+         [JsonIgnore]
+         public Faculty Faculty { get; set; }*/
 
         [JsonIgnore]
         public ICollection<TeachingSchedule> TeachingSchedules { get; set; }

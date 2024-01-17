@@ -26,13 +26,17 @@ namespace CourseSignupSystemCode.Models
 
         public string? Address { get; set; }
 
-        public string? MainSubject { get; set; }
-
         public string? PartTimeSubject { get; set; }
 
         public string? Password { get; set; }
 
         public string? Image { get; set; }
+
+        [ForeignKey("SubjectOfTeacher")]
+        public int IDSubject { get; set; }
+
+        [JsonIgnore]
+        public SubjectOfTeacher SubjectOfTeacher { get; set; }
 
         [ForeignKey("Role")]
         public int IDRole { get; set; }

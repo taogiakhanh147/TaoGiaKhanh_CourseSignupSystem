@@ -17,14 +17,14 @@ namespace CourseSignupSystemCode.Models
         [ForeignKey("Course")]
         public int IDCourse { get; set; }
 
-        [JsonIgnore]
-        public Course Course { get; set; }
+       /* [JsonIgnore]
+        public Course Course { get; set; }*/
 
         [ForeignKey("Subject")]
         public int IDSubject { get; set; }
 
         [JsonIgnore]
-        public Subject Subject { get; set; }
+        public SubjectOfStudent Subject { get; set; }
 
         [ForeignKey("ScoreType")]
         public int IDScoreType { get; set; }

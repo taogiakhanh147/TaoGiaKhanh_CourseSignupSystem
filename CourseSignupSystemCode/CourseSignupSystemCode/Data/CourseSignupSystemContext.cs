@@ -15,7 +15,8 @@ namespace CourseSignupSystemCode.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<TeachingSchedule> TeachingSchedules { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<SubjectOfStudent> SubjectOfStudents { get; set; }
+        public DbSet<SubjectOfTeacher> SubjectOfTeachers { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Tuition> Tuitions { get; set; }
         public DbSet<TuitionType> TuitionTypes { get; set; }
