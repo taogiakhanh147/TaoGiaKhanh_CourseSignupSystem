@@ -9,6 +9,8 @@ namespace CourseSignupSystemCode.Interface
 
         public Task<Student> GetStudentByIdAsync(int id);
 
+        public Task<List<GetAllClassOfStudentDTO>> GetAllClassOfStudentAsync(string email, int idCourse);
+
         public Task<Student> AddStudentAsync(StudentDTO studentDTO);
 
         public Task<Student> UploadImageStudentAsync(int id, IFormFile file);

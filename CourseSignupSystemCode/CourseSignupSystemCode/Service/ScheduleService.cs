@@ -35,6 +35,50 @@ namespace CourseSignupSystemCode.Service
             return schedule;
         }
 
+        public async Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("User email cannot be null or empty");
+            }
+
+            // Lấy IDStudent của người dùng có email được nhập
+            var userStudentIds = await _context.Students
+                .Where(s => s.Email == email)
+                .Select(s => s.ID)
+                .ToListAsync();
+            if(userStudentIds.Count == 0)
+            {
+                throw new NotImplementedException("Email is invalid");
+            }
+
+            // Lấy danh sách các lịch học của người dùng
+            var userSchedules = await _context.Schedules
+                .Include(s => s.Student)
+                .ThenInclude(st => st.Class)
+                .ThenInclude(c => c.SubjectOfStudents)
+                .Where(s => userStudentIds.Contains(s.IDStudent))
+                .ToListAsync();
+            if(userSchedules.Count == 0) 
+            {
+                throw new NotImplementedException("Student is not schedule");
+            }
+
+            // Chuyển đổi danh sách lịch học sang định dạng DTO
+            var getScheduleByEmailDTOs = userSchedules.Select(s => new GetScheduleByEmailDTO
+            {
+                ClassRoom = s.ClassRoom,
+                StudyTime = s.StudyTime,
+                StudyDay = s.StudyDay,
+                Stage = s.Stage,
+                SubjectName = s.Student.Class.SubjectOfStudents
+                    .FirstOrDefault(subject => subject.ID == s.IDSubject)?.SubjectName
+            }).ToList();
+
+            return getScheduleByEmailDTOs;
+        }
+
+
         public async Task<Schedule> AddScheduleAsync(ScheduleDTO scheduleDTO)
         {
             if (scheduleDTO == null)
@@ -53,7 +97,7 @@ namespace CourseSignupSystemCode.Service
             }
 
             // Kiểm tra xem môn học nhập vào có thuộc trong lớp mà học sinh học không
-            var subjectInClass = student.Class?.SubjectOfStudents.FirstOrDefault(s => s.ID == scheduleDTO.IDSubject);
+            var subjectInClass = student.Class.SubjectOfStudents.FirstOrDefault(s => s.ID == scheduleDTO.IDSubject);
             if (subjectInClass == null)
             {
                 throw new NotImplementedException("Subject is not in the student's class");

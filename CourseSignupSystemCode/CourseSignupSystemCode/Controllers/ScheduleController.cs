@@ -32,6 +32,14 @@ namespace CourseSignupSystemCode.Controllers
             return Ok(schedule);
         }
 
+        // Function GetScheduleById (GET)
+        [HttpGet("GetScheduleByEmail/{email}")]
+        public async Task<IActionResult> GetScheduleByEmail(string email)
+        {
+            var schedule = await _iScheduleService.GetScheduleByEmailAsync(email);
+            return Ok(schedule);
+        }
+
         // Function AddNewSchedule (POST)
         [HttpPost("AddNewSchedule")]
         public async Task<IActionResult> AddNewSchedule(ScheduleDTO scheduleDTO)

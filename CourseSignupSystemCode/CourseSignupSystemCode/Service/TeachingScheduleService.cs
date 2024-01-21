@@ -3,6 +3,8 @@ using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
 using CourseSignupSystemCode.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace CourseSignupSystemCode.Service
 {
@@ -35,6 +37,7 @@ namespace CourseSignupSystemCode.Service
             return teachingSchedule;
         }
 
+
         public async Task<TeachingSchedule> AddTeachingScheduleAsync(TeachingScheduleDTO teachingScheduleDTO)
         {
             if (teachingScheduleDTO == null)
@@ -42,44 +45,27 @@ namespace CourseSignupSystemCode.Service
                 throw new NotImplementedException("Please enter complete information");
             }
 
-            // Kiểm tra xem IDSubject có tồn tại trong bảng Subject không
-            var subject = await _context.SubjectOfTeachers
-                .Where(s => s.ID == teachingScheduleDTO.IDSubject)
-                .Include(s => s.Teachers)
-                .FirstOrDefaultAsync();
-
-            if (subject == null)
+            var teacher = await _context.Teachers.FindAsync(teachingScheduleDTO.IDTeacher);
+            // Kiểm tra giảng viên có tồn tại không
+            if (teacher == null)
+            {
+                throw new Exception("Teacher not found");
+            }
+            // Kiểm tra môn học giảng viên đó phụ trách có hợp lệ không
+            if (teacher.IDSubject != teachingScheduleDTO.IDSubject)
             {
                 throw new Exception("Subject not found");
             }
 
-            // Kiểm tra xem giáo viên có dạy môn có IDSubject không
-            var isTeacherTeachingSubject = subject.Teachers.Any(t => t.ID == teachingScheduleDTO.IDTeacher);
-
-            if (!isTeacherTeachingSubject)
-            {
-                throw new Exception("Teacher is not assigned to teach the specified subject");
-            }
-
-            // Tìm lớp thông qua IDClass của bảng Subject
-            var classInfo = await _context.Classes
+            // Kiểm tra xem lớp có chứa môn học mà giảng viên phụ trách không
+            var Class = await _context.Classes
                 .Where(c => c.ID == teachingScheduleDTO.IDClass)
-                .FirstOrDefaultAsync();
-
-            if (classInfo == null)
-            {
-                throw new Exception("Class not found");
-            }
-
-            // Kiểm tra xem lớp có chứa IDSubject không
-            var isSubjectInClass = await _context.Classes
-                .Where(c => c.ID == classInfo.ID)
                 .SelectMany(c => c.SubjectOfTeachers)
                 .AnyAsync(s => s.ID == teachingScheduleDTO.IDSubject);
 
-            if (!isSubjectInClass)
+            if (!Class)
             {
-                throw new Exception("Subject not in the specified class");
+                throw new Exception("Class not found");
             }
 
             var newTeachingSchedule = new TeachingSchedule
@@ -98,7 +84,6 @@ namespace CourseSignupSystemCode.Service
 
             return newTeachingSchedule;
         }
-
 
         public async Task<TeachingSchedule> UpdateTeachingScheduleAsync(int id, TeachingScheduleDTO teachingScheduleDTO)
         {

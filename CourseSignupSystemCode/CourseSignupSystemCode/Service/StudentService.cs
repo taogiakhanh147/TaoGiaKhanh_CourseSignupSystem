@@ -37,6 +37,36 @@ namespace CourseSignupSystemCode.Service
             return student;
         }
 
+        public async Task<List<GetAllClassOfStudentDTO>> GetAllClassOfStudentAsync(string email, int idCourse)
+        {
+            var students = await _context.Students
+                        .Include(s => s.Class)
+                        .ThenInclude(c => c.Course)
+                        .Where(s => s.Email == email && s.Class.IDCourse == idCourse)
+                        .ToListAsync();
+
+            if (students == null || students.Count == 0)
+            {
+                throw new NotImplementedException("No matching students found");
+            }
+
+            var groupedStudents = students
+                .GroupBy(s => $"{s.LastName} {s.MiddleAndFirstName}")
+                .Select(group => new GetAllClassOfStudentDTO
+                {
+                    FullName = group.Key,
+                    ClassNames = group.SelectMany(s => s.Class?.Students
+                                      .Select(st => st.Class.ClassName)
+                                      .Distinct() ?? new List<string>())
+                                      .Distinct()
+                                      .ToList()
+                })
+                .ToList();
+
+            return groupedStudents;
+        }
+
+
         public async Task<Student> AddStudentAsync(StudentDTO studentDTO)
         {
             if (studentDTO == null)

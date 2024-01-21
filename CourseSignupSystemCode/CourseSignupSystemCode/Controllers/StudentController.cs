@@ -34,6 +34,14 @@ namespace CourseSignupSystemCode.Controllers
             return Ok(student);
         }
 
+        // Function GetAllStudent (GET)
+        [HttpGet("GetAllClassOfStudent/{email}/{idCourse}")]
+        public async Task<IActionResult> GetAllClassOfStudent(string email, int idCourse)
+        {
+            var student = await _iStudentService.GetAllClassOfStudentAsync(email, idCourse);
+            return Ok(student);
+        }
+
         // Function AddNewStudent (POST)
         [HttpPost("AddNewStudent")]
         public async Task<IActionResult> AddNewStudent(StudentDTO studentDTO)

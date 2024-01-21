@@ -34,6 +34,10 @@ builder.Services.AddScoped<ITuitionTypeService, TuitionTypeService>();
 builder.Services.AddScoped<ITuitionService, TuitionService>();
 builder.Services.AddScoped<IHolidayService, HolidayService>();
 builder.Services.AddScoped<ITeachingScheduleService, TeachingScheduleService>();
+builder.Services.AddScoped<IScoreTypeService, ScoreTypeService>();
+builder.Services.AddScoped<IScoreTypeSubjectService, ScoreTypeSubjectService>();
+builder.Services.AddScoped<IResultService, ResultService>();
+builder.Services.AddScoped<ISalaryService, SalaryService>();
 
 var app = builder.Build();
 
