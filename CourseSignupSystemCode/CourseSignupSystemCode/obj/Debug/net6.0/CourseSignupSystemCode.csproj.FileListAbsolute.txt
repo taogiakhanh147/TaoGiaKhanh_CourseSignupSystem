@@ -66,3 +66,5 @@ D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCod
 D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCode\obj\Debug\net6.0\CourseSignupSystemCode.pdb
 D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCode\obj\Debug\net6.0\CourseSignupSystemCode.genruntimeconfig.cache
 D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCode\obj\Debug\net6.0\ref\CourseSignupSystemCode.dll
+D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCode\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Alta SoftWare\CourseSignupSystem\CourseSignupSystemCode\CourseSignupSystemCode\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

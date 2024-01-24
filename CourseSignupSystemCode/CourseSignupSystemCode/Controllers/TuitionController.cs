@@ -1,5 +1,6 @@
 ﻿using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function GetAllTuition (GET)
         [HttpGet("GetAllTuition")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllTuition()
         {
             var tuitions = await _iTuitionService.GetAllTuitionAsync();
@@ -26,6 +28,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function GetTuitionById (GET)
         [HttpGet("GetTuitionById/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetTuitionById(int id)
         {
             var tuition = await _iTuitionService.GetTuitionsByIdAsync(id);
@@ -34,6 +37,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function AddNewTuition (POST)
         [HttpPost("AddNewTuition")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewTuition(TuitionDTO tuitionDTO)
         {
             var newTuition = await _iTuitionService.AddTuitionAsync(tuitionDTO);
@@ -42,6 +46,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function UpdateTuition (PUT)
         [HttpPut("UpdateTuition/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateTuition(int id, TuitionDTO tuitionDTO)
         {
             var updateTuition = await _iTuitionService.UpdateTuitionAsync(id, tuitionDTO);
@@ -50,6 +55,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function DeleteTuition (DELETE)
         [HttpDelete("DeleteTuition/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTuition(int id)
         {
             await _iTuitionService.DeleteTuitionAsync(id);

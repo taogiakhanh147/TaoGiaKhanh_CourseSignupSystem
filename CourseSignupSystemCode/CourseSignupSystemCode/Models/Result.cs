@@ -10,19 +10,13 @@ namespace CourseSignupSystemCode.Models
         [Key]
         public int ID { get; set; }
 
-        public int? Score { get; set; }
+        public float? Score { get; set; }
 
-        [ForeignKey("Subject")]
+        [Required]
         public int IDSubject { get; set; }
 
-        /*[JsonIgnore]
-        public Subject Subject { get; set; }*/
-
-        /* [ForeignKey("ScoreType")]
-         public int IDScoreType { get; set; }
-
-         [JsonIgnore]
-         public ScoreType ScoreType { get; set; }*/
+        [Required]
+        public int IDScoreType { get; set; }
 
         [ForeignKey("Student")]
         public int IDStudent { get; set; }

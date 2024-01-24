@@ -38,12 +38,6 @@ namespace CourseSignupSystemCode.Models
         public ICollection<Student> Students { get; set; }
 
         [JsonIgnore]
-        public ICollection<TeachingSchedule> TeachingSchedules { get; set; }
-
-       /* [JsonIgnore]
-        public ICollection<Tuition> Tuitions { get; set; }*/
-
-        [JsonIgnore]
         public ICollection<Salary> Salaries { get; set; }
 
         [JsonIgnore]

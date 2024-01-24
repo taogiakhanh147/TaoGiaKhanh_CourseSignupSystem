@@ -20,11 +20,8 @@ namespace CourseSignupSystemCode.Models
 
         public string? Note { get; set; }
 
-        [ForeignKey("Class")]
+        [Required]
         public int IDClass { get; set; }
-
-        /*[JsonIgnore]
-        public Class Class { get; set; }*/
 
         [ForeignKey("Student")]
         public int IDStudent { get; set; }

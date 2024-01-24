@@ -37,6 +37,49 @@ namespace CourseSignupSystemCode.Service
             return teachingSchedule;
         }
 
+        public async Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email, int idCourse)
+        {
+            if (string.IsNullOrEmpty(email) || idCourse==0)
+            {
+                throw new ArgumentException("User email or IDCourse cannot be null or empty");
+            }
+
+            // Lấy IDStudent của người dùng có email được nhập
+            var userTeacherIds = await _context.Teachers
+                .Where(s => s.Email == email)
+                .Select(s => s.ID)
+                .ToListAsync();
+            if (userTeacherIds.Count == 0)
+            {
+                throw new NotImplementedException("Email is invalid");
+            }
+
+            // Lấy danh sách các lịch học của người dùng
+            var userSchedules = await _context.TeachingSchedules
+                .Where(ts => userTeacherIds.Contains(ts.IDTeacher) && ts.Teacher.SubjectOfTeacher.Class.Course.ID == idCourse)
+                .Include(ts => ts.Teacher)
+                .ThenInclude(t => t.SubjectOfTeacher)
+                .ThenInclude(s => s.Class)
+                .ThenInclude(c => c.Course)
+                .ToListAsync();
+            if (userSchedules.Count == 0)
+            {
+                throw new NotImplementedException("Teacher is not schedule");
+            }
+
+            // Chuyển đổi danh sách lịch học sang định dạng DTO
+            var getScheduleByEmailDTOs = userSchedules.Select(ts => new GetScheduleByEmailDTO
+            {
+                ClassRoom = ts.ClassRoom,
+                StudyTime = ts.TeachTime,
+                StudyDay = ts.TeachDay,
+                Stage = ts.Stage,
+                SubjectName = ts.Teacher.SubjectOfTeacher.SubjectName // Vì Teacher gọi SubjectOfTeacher là gọi đến khóa ngoại trong Teacher nên không thể dùng LINQ
+            }).ToList();
+
+            return getScheduleByEmailDTOs;
+        }
+
 
         public async Task<TeachingSchedule> AddTeachingScheduleAsync(TeachingScheduleDTO teachingScheduleDTO)
         {

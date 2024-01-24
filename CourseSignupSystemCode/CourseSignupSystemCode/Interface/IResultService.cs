@@ -9,6 +9,8 @@ namespace CourseSignupSystemCode.Interface
 
         public Task<Result> GetResultsByIdAsync(int id);
 
+        public Task<List<GetResultByStudentDTO>> GetResultByStudentAsync(string email, int idCourse);
+
         public Task<Result> AddResultAsync(ResultDTO resultDTO);
 
         public Task<Result> UpdateResultAsync(int id, ResultDTO resultDTO);

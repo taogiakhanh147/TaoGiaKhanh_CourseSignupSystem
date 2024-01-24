@@ -1,5 +1,6 @@
 ﻿using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function AddNewHoliday (POST)
         [HttpPost("AddNewHoliday")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewHoliday(HolidayDTO holidayDTO)
         {
             var newHoliday = await _iHolidayService.AddHolidayAsync(holidayDTO);
@@ -42,6 +44,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function UpdateHoliday (PUT)
         [HttpPut("UpdateHoliday/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateHoliday(int id, HolidayDTO holidayDTO)
         {
             var updateHoliday = await _iHolidayService.UpdateHolidayAsync(id, holidayDTO);
@@ -50,6 +53,7 @@ namespace CourseSignupSystemCode.Controllers
 
         // Function DeleteHoliday (DELETE)
         [HttpDelete("DeleteHoliday/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteHoliday(int id)
         {
             await _iHolidayService.DeleteHolidayAsync(id);

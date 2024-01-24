@@ -9,7 +9,7 @@ namespace CourseSignupSystemCode.Interface
 
         public Task<Schedule> GetSchedulesByIdAsync(int id);
 
-        public Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email);
+        public Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email, int idCourse);
 
         public Task<Schedule> AddScheduleAsync(ScheduleDTO scheduleDTO);
 

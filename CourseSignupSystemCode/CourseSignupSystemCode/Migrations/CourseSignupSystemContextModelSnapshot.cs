@@ -153,14 +153,17 @@ namespace CourseSignupSystemCode.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<int>("IDScoreType")
+                        .HasColumnType("int");
+
                     b.Property<int>("IDStudent")
                         .HasColumnType("int");
 
                     b.Property<int>("IDSubject")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Score")
-                        .HasColumnType("int");
+                    b.Property<float?>("Score")
+                        .HasColumnType("real");
 
                     b.HasKey("ID");
 
@@ -244,14 +247,9 @@ namespace CourseSignupSystemCode.Migrations
                     b.Property<string>("StudyTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectOfStudentID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("IDStudent");
-
-                    b.HasIndex("SubjectOfStudentID");
 
                     b.ToTable("Schedule");
                 });
@@ -283,9 +281,6 @@ namespace CourseSignupSystemCode.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("CourseID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("GradingColumn")
                         .HasColumnType("int");
 
@@ -302,8 +297,6 @@ namespace CourseSignupSystemCode.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CourseID");
 
                     b.HasIndex("IDScoreType");
 
@@ -487,9 +480,6 @@ namespace CourseSignupSystemCode.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("ClassID")
-                        .HasColumnType("int");
-
                     b.Property<string>("ClassRoom")
                         .HasColumnType("nvarchar(max)");
 
@@ -505,9 +495,6 @@ namespace CourseSignupSystemCode.Migrations
                     b.Property<string>("Stage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectOfStudentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeachDay")
                         .HasColumnType("nvarchar(max)");
 
@@ -516,11 +503,7 @@ namespace CourseSignupSystemCode.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ClassID");
-
                     b.HasIndex("IDTeacher");
-
-                    b.HasIndex("SubjectOfStudentID");
 
                     b.ToTable("TeachingSchedule");
                 });
@@ -661,26 +644,18 @@ namespace CourseSignupSystemCode.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSignupSystemCode.Models.SubjectOfStudent", null)
-                        .WithMany("Schedules")
-                        .HasForeignKey("SubjectOfStudentID");
-
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.ScoreTypeSubject", b =>
                 {
-                    b.HasOne("CourseSignupSystemCode.Models.Course", null)
-                        .WithMany("ScoreTypeSubjects")
-                        .HasForeignKey("CourseID");
-
                     b.HasOne("CourseSignupSystemCode.Models.ScoreType", "ScoreType")
                         .WithMany("ScoreTypeSubjects")
                         .HasForeignKey("IDScoreType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSignupSystemCode.Models.SubjectOfStudent", "Subject")
+                    b.HasOne("CourseSignupSystemCode.Models.SubjectOfStudent", "SubjectOfStudent")
                         .WithMany("ScoreTypeSubjects")
                         .HasForeignKey("IDSubject")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -688,7 +663,7 @@ namespace CourseSignupSystemCode.Migrations
 
                     b.Navigation("ScoreType");
 
-                    b.Navigation("Subject");
+                    b.Navigation("SubjectOfStudent");
                 });
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.Student", b =>
@@ -769,19 +744,11 @@ namespace CourseSignupSystemCode.Migrations
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.TeachingSchedule", b =>
                 {
-                    b.HasOne("CourseSignupSystemCode.Models.Class", null)
-                        .WithMany("TeachingSchedules")
-                        .HasForeignKey("ClassID");
-
                     b.HasOne("CourseSignupSystemCode.Models.Teacher", "Teacher")
                         .WithMany("teachingSchedules")
                         .HasForeignKey("IDTeacher")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CourseSignupSystemCode.Models.SubjectOfStudent", null)
-                        .WithMany("TeachingSchedules")
-                        .HasForeignKey("SubjectOfStudentID");
 
                     b.Navigation("Teacher");
                 });
@@ -825,15 +792,11 @@ namespace CourseSignupSystemCode.Migrations
                     b.Navigation("SubjectOfStudents");
 
                     b.Navigation("SubjectOfTeachers");
-
-                    b.Navigation("TeachingSchedules");
                 });
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.Course", b =>
                 {
                     b.Navigation("Classes");
-
-                    b.Navigation("ScoreTypeSubjects");
                 });
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.Department", b =>
@@ -873,11 +836,7 @@ namespace CourseSignupSystemCode.Migrations
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.SubjectOfStudent", b =>
                 {
-                    b.Navigation("Schedules");
-
                     b.Navigation("ScoreTypeSubjects");
-
-                    b.Navigation("TeachingSchedules");
                 });
 
             modelBuilder.Entity("CourseSignupSystemCode.Models.SubjectOfTeacher", b =>

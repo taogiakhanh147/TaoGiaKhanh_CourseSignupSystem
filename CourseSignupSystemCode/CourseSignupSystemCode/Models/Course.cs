@@ -20,11 +20,5 @@ namespace CourseSignupSystemCode.Models
 
         [JsonIgnore]
         public ICollection<Class> Classes { get; set; }
-
-        [JsonIgnore]
-        public ICollection<ScoreTypeSubject> ScoreTypeSubjects { get; set; }
-
-        /*[JsonIgnore]
-        public ICollection<Salary> Salaries { get; set; }*/
     }
 }

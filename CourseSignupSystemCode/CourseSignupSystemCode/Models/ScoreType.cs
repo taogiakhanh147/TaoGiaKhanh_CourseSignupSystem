@@ -16,8 +16,5 @@ namespace CourseSignupSystemCode.Models
 
         [JsonIgnore]
         public ICollection<ScoreTypeSubject> ScoreTypeSubjects { get; set; }
-
-       /* [JsonIgnore]
-        public ICollection<Result> Results { get; set; }*/
     }
 }

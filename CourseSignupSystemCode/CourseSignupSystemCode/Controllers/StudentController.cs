@@ -2,6 +2,7 @@
 using CourseSignupSystemCode.Interface;
 using CourseSignupSystemCode.Models;
 using CourseSignupSystemCode.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace CourseSignupSystemCode.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _iStudentService;

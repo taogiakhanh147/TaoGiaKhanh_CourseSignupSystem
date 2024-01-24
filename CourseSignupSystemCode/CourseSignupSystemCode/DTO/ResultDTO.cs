@@ -5,10 +5,13 @@ namespace CourseSignupSystemCode.DTO
 {
     public class ResultDTO
     {
-        public int? Score { get; set; }
+        public float? Score { get; set; }
 
         [Required]
         public int IDSubject { get; set; }
+
+        [Required]
+        public int IDScoreType { get; set; }
 
         [Required]
         public int IDStudent { get; set; }

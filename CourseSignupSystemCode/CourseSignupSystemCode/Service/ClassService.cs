@@ -34,6 +34,29 @@ namespace CourseSignupSystemCode.Service
             return Class;
         }
 
+
+        public async Task<List<GetAllStudentInClassDTO>> GetAllStudentInClassAsync(int id)
+        {
+            var studentsInClass = await _context.Students
+                .Where(s => s.IDClass == id)
+                .ToListAsync();
+
+            var tuitionIds = await _context.Tuitions
+                .Where(t => t.IDClass == id)
+                .Select(t => t.IDStudent)
+                .ToListAsync();
+
+            var result = studentsInClass.Select(student => new GetAllStudentInClassDTO
+            {
+                FullName = $"{student.LastName} {student.MiddleAndFirstName}",
+                Email = student.Email,
+                Phone = student.Phone,
+                Status = tuitionIds.Contains(student.ID) ? "Đã đóng học phí" : "Chưa đóng học phí"
+            }).ToList();
+
+            return result;
+        }
+
         public async Task<Class> AddClassAsync(ClassDTO classDTO)
         {
             if (classDTO == null)

@@ -1,5 +1,6 @@
 ﻿using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace CourseSignupSystemCode.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin, Giảng Viên")]
     public class SubjectOfTeacherController : ControllerBase
     {
         private readonly ISubjectOfTeacherService _iSubjectService;

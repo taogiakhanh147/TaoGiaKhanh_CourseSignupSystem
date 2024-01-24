@@ -16,26 +16,15 @@ namespace CourseSignupSystemCode.Models
 
         public string? Note { get; set; }
 
-        /*public int? TotalRevenue { get; set; } // Tổng tiền học phí học sinh đóng*/
-
         public int? SalaryNet { get; set; } // Tiền cuối cùng giảng viên nhận được
 
-        [ForeignKey("Teacher")]
+        [Required]
         public int IDTeacher { get; set; }
-
-        /*[JsonIgnore]
-        public Teacher Teacher { get; set; }*/
 
         [ForeignKey("Class")]
         public int IDClass { get; set; }
 
         [JsonIgnore]
         public Class Class { get; set; }
-
-       /* [ForeignKey("Course")]
-        public int IDCourse { get; set; }
-
-        [JsonIgnore]
-        public Course Course { get; set; }*/
     }
 }

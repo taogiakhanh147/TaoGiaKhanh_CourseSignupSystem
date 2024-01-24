@@ -35,9 +35,9 @@ namespace CourseSignupSystemCode.Service
             return schedule;
         }
 
-        public async Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email)
+        public async Task<List<GetScheduleByEmailDTO>> GetScheduleByEmailAsync(string email, int idCourse)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email) || idCourse == 0)
             {
                 throw new ArgumentException("User email cannot be null or empty");
             }
@@ -54,10 +54,11 @@ namespace CourseSignupSystemCode.Service
 
             // Lấy danh sách các lịch học của người dùng
             var userSchedules = await _context.Schedules
+                .Where(s => userStudentIds.Contains(s.IDStudent) && s.Student.Class.Course.ID == idCourse)
                 .Include(s => s.Student)
                 .ThenInclude(st => st.Class)
                 .ThenInclude(c => c.SubjectOfStudents)
-                .Where(s => userStudentIds.Contains(s.IDStudent))
+                .Include(s => s.Student.Class.Course)
                 .ToListAsync();
             if(userSchedules.Count == 0) 
             {
@@ -71,7 +72,7 @@ namespace CourseSignupSystemCode.Service
                 StudyTime = s.StudyTime,
                 StudyDay = s.StudyDay,
                 Stage = s.Stage,
-                SubjectName = s.Student.Class.SubjectOfStudents
+                SubjectName = s.Student.Class.SubjectOfStudents // Vì Class gọi SubjectOfStudents là gọi khóa chính trong Class nên có thể sử dụng LINQ
                     .FirstOrDefault(subject => subject.ID == s.IDSubject)?.SubjectName
             }).ToList();
 

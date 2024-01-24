@@ -51,10 +51,10 @@ namespace CourseSignupSystemCode.Service
             // Kiểm tra IDCourse
             var course = await _context.Courses
                        .Where(c => c.ID == scoreTypeSubjectDTO.IDCourse)
-                       .Include(c => c.Classes)
-                       .ThenInclude(cl => cl.SubjectOfStudents)
-                       .AnyAsync(s => s.ID == scoreTypeSubjectDTO.IDSubject);
-            if (!course)
+                       .SelectMany(c => c.Classes)
+                       .SelectMany(cl => cl.SubjectOfStudents)
+                       .FirstOrDefaultAsync(s => s.ID == scoreTypeSubjectDTO.IDSubject);
+            if (course ==  null)
             {
                 throw new NotImplementedException("Course not found");
             }

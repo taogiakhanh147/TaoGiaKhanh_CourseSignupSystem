@@ -50,8 +50,8 @@ namespace CourseSignupSystemCode.Service
             // Kiểm tra IDTeacher
             var teacher = await _context.Teachers
                         .Where(t => t.ID == salaryDTO.IDTeacher)
-                        .Include(t => t.SubjectOfTeacher)
-                        .ThenInclude(s => s.Class)
+                        .Select(t => t.SubjectOfTeacher)
+                        .Select(s => s.Class)
                         .FirstOrDefaultAsync(c => c.ID == Class.ID);
             if(teacher == null)
             {
@@ -94,8 +94,8 @@ namespace CourseSignupSystemCode.Service
             // Kiểm tra IDTeacher
             var teacher = await _context.Teachers
                         .Where(t => t.ID == salaryDTO.IDTeacher)
-                        .Include(t => t.SubjectOfTeacher)
-                        .ThenInclude(s => s.Class)
+                        .Select(t => t.SubjectOfTeacher)
+                        .Select(s => s.Class)
                         .FirstOrDefaultAsync(c => c.ID == Class.ID);
             if (teacher == null)
             {

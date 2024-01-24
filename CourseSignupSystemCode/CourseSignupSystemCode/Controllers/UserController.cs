@@ -1,6 +1,7 @@
 ﻿using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
 using CourseSignupSystemCode.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CourseSignupSystemCode.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _iUserService;

@@ -18,11 +18,8 @@ namespace CourseSignupSystemCode.Models
 
         public string? Stage { get; set; }
 
-        [ForeignKey("Subject")]
+        [Required]
         public int IDSubject { get; set; }
-
-        /*[JsonIgnore]
-        public Subject Subject { get; set; }*/
 
         [ForeignKey("Student")]
         public int IDStudent { get; set; }

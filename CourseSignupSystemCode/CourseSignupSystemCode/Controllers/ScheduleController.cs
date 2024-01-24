@@ -1,5 +1,6 @@
 ﻿using CourseSignupSystemCode.DTO;
 using CourseSignupSystemCode.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace CourseSignupSystemCode.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin, Học Viên")]
     public class ScheduleController : ControllerBase
     {
         private readonly IScheduleService _iScheduleService;
@@ -33,10 +35,10 @@ namespace CourseSignupSystemCode.Controllers
         }
 
         // Function GetScheduleById (GET)
-        [HttpGet("GetScheduleByEmail/{email}")]
-        public async Task<IActionResult> GetScheduleByEmail(string email)
+        [HttpGet("GetScheduleByEmail/{email}/{idCourse}")]
+        public async Task<IActionResult> GetScheduleByEmail(string email, int idCourse)
         {
-            var schedule = await _iScheduleService.GetScheduleByEmailAsync(email);
+            var schedule = await _iScheduleService.GetScheduleByEmailAsync(email, idCourse);
             return Ok(schedule);
         }
 

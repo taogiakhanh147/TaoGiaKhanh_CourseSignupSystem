@@ -26,22 +26,7 @@ namespace CourseSignupSystemCode.Models
         [JsonIgnore]
         public Class Class { get; set; }
 
-        /* [ForeignKey("Faculty")]
-         public int IDFaculty { get; set; }
-
-         [JsonIgnore]
-         public Faculty Faculty { get; set; }*/
-
-        [JsonIgnore]
-        public ICollection<TeachingSchedule> TeachingSchedules { get; set; }
-
-        [JsonIgnore]
-        public ICollection<Schedule> Schedules { get; set; }
-
         [JsonIgnore]
         public ICollection<ScoreTypeSubject> ScoreTypeSubjects { get; set; }
-
-       /* [JsonIgnore]
-        public ICollection<Result> Results { get; set; }*/
     }
 }
